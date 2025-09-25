@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <unistd.h> // sleep()
 
 #define P(sem) sem_wait(&sem) // macro du préprocesseur. Avant compilation, chaque P(x) est remplacé par sem_wait(&x).
 #define V(sem) sem_post(&sem)
@@ -12,10 +13,16 @@ void *thread_1_synchro(void *arg) // pthread requires signature
 {
     P(sem1);
     printf("Je sais ");
+    fflush(stdout);
+    usleep(100000);
+
     V(sem2);
 
     P(sem3);
     printf("ce type ");
+    fflush(stdout);
+    usleep(100000);
+
     V(sem4);
 
     return NULL;
@@ -25,10 +32,13 @@ void *thread_2_synchro(void *arg)
 {
     P(sem2);
     printf("toujours faire ");
+    fflush(stdout);
+    usleep(100000);
     V(sem3);
 
     P(sem4);
     printf("de synchronisation !\n");
+    fflush(stdout);
 
     return NULL;
 }
