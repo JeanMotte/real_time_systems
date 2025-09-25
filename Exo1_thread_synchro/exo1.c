@@ -43,11 +43,11 @@ void *thread_2_synchro(void *arg)
     return NULL;
 }
 
-int main()
+int main() // main is an int because it returns 0 if its a success. Other values are error codes.
 {
     pthread_t t1, t2;
 
-    sem_init(&sem1, 0, 1); // thread_1 peut démarrer
+    sem_init(&sem1, 0, 1); // thread_1 can start
     sem_init(&sem2, 0, 0);
     sem_init(&sem3, 0, 0);
     sem_init(&sem4, 0, 0);
