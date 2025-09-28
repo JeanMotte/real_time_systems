@@ -47,16 +47,16 @@ int main() // main is an int because it returns 0 if its a success. Other values
 {
     pthread_t t1, t2;
 
-    sem_init(&sem1, 0, 1); // thread_1 can start
-    sem_init(&sem2, 0, 0);
+    sem_init(&sem1, 0, 1); // Put the semaphore 1 value at 1, so it's available and can start
+    sem_init(&sem2, 0, 0); // Init others at 0 -> not available, and I can trigger them when i want
     sem_init(&sem3, 0, 0);
     sem_init(&sem4, 0, 0);
 
     pthread_create(&t1, NULL, thread_1_synchro, NULL);
     pthread_create(&t2, NULL, thread_2_synchro, NULL);
 
-    pthread_join(t1, NULL);
-    pthread_join(t2, NULL);
+    pthread_join(t1, NULL); // wait for thread t1 to finish
+    pthread_join(t2, NULL); // wait for thread t2 to finish
 
     sem_destroy(&sem1);
     sem_destroy(&sem2);
